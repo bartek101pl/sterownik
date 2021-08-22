@@ -7,6 +7,7 @@ functionMenu::functionMenu(String lable,uint8_t * data,String units,int min,int 
     this->min = min;
     this->data = data;
     this->unit = units;
+    this->old = -1;
 }
 
 functionMenu::~functionMenu()
@@ -17,7 +18,7 @@ void functionMenu::moreEvent(){
     {
         this->old = *this->data;
     }
-        if(*this->data<this->max)
+        if((*this->data+this->counter)<this->max)
     {
         *this->data+=this->counter;
         
@@ -28,7 +29,7 @@ void functionMenu::lessEvent(){
     {
         this->old = *this->data;
     }
-    if(*this->data>this->min)
+    if((*this->data-this->counter)>this->min)
     {
         *this->data-=this->counter;
         

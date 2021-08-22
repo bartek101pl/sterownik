@@ -5,7 +5,7 @@ pwm::pwm(uint8_t pinCode,int Hz)
     this->pinCode = pinCode;
     this->time = 0;
     this->oldTime= 0;
-    
+
 }
 
 void pwm::init() {
@@ -13,15 +13,15 @@ void pwm::init() {
 }
 
 void pwm::update(float x){
-     x =  (x>100) ? 100 : x;
+    x =  (x>100) ? 100 : x;
     this->currentTime = micros() - this->oldTime;
-    
+
     if( x == 0){
         digitalWrite(this->pinCode,LOW);
-        
-        
+
+
     }else{
-           
+
         if(this->currentTime>=this->time)
         {
             this->oldTime = micros();
@@ -38,12 +38,12 @@ void pwm::update(float x){
                 this->status = true;
                 this->time = (this->lowTime);
             }
-            
+
         }
-    
+
     }
-    
-    
+
+
 }
 
 

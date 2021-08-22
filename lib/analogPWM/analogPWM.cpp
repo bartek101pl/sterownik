@@ -8,7 +8,7 @@ analogPWM::analogPWM(uint8_t pinCode,driver::function * data,bool * zab,bool * h
     this->pinCode = pinCode;
     this->time = 0;
     this->oldTime= 0;
-    
+
 }
 
 void analogPWM::init() {
@@ -19,22 +19,22 @@ void analogPWM::update(float x , bool i){
     if(i){
         this->last = 0;
     }
-     x =  (x>100) ? 100 : x;
+    x =  (x>100) ? 100 : x;
+    //  x = (x>10) ? x: 0;
 
-     
     this->currentTime = micros() - this->oldTime;
-    
+
     if(this->last == 0 && x == 0){
         digitalWrite(this->pinCode,LOW);
-        
-        
+
+
     }else{
-         if(this->data->help == 1)
+        if(this->data->help == 1)
         {
             *this->help = (*this->help|| true);
         }
 
-            *this->zab = (*this->zab || 1);
+        *this->zab = (*this->zab || 1);
         if(this->currentTime>=this->time)
         {
             this->oldTime = micros();
@@ -58,9 +58,9 @@ void analogPWM::update(float x , bool i){
                 float Htime = minTime+(maxTime)*((float)x/(float)100);
                 this->lowTime = (float)this->basTime-Htime;
                 if(x!=0)
-                digitalWrite(this->pinCode,HIGH);
+                    digitalWrite(this->pinCode,HIGH);
                 else
-                digitalWrite(this->pinCode,LOW);
+                    digitalWrite(this->pinCode,LOW);
                 this->status = false;
                 this->time = Htime;
                 this->last = x;
@@ -71,12 +71,12 @@ void analogPWM::update(float x , bool i){
                 this->status = true;
                 this->time = (this->lowTime);
             }
-            
+
         }
-    
+
     }
-    
-    
+
+
 }
 
 
@@ -88,12 +88,12 @@ void analogPWM::update(float x , bool * hPinStatus){
     hPinStatus = (this->last!=0?hPinStatus:false);
     if(this->last == 0 && x == 0){
         digitalWrite(this->pinCode,LOW);
-       
+
 
     }else{
         *this->zab = (*this->zab || 1);
         *hPinStatus = (*hPinStatus || true);
-       
+
         if(this->data->help == 1)
         {
             *this->help = (*this->help|| true);

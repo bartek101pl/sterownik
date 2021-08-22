@@ -6,7 +6,7 @@
 class pwm
 {
 private:
-    
+
     uint8_t pinCode;
     unsigned long time;
     float basTime;
@@ -14,7 +14,7 @@ private:
     float lowTime;
     unsigned long oldTime;
     bool status = false;
-    
+
 public:
     pwm(uint8_t pinCode,int Hz);
     void update(float x);

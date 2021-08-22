@@ -10,7 +10,7 @@
      uint8_t * data;
      int counter =1, min,max;
      String unit = "";
-     
+     int16_t old;
  public:
     void nextEvent(); 
     void backEvent(); 

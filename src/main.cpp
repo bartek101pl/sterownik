@@ -121,7 +121,9 @@ void setup() {
 
     stop.update(false);
 
-
+    digitalWrite(zabList[0],LOW);
+    digitalWrite(zabList[1],LOW);
+    digitalWrite(zabList[2],LOW);
     digitalWrite(StatusPin, HIGH);
 }
 
@@ -129,7 +131,7 @@ void loop() {
 
     wad.update(50);
 
-    if(Serial1.available()){
+    if(Serial1.available()>=sizeof(senddata)){
         Serial1.readBytes((char *) &dc,sizeof(senddata));
 
         if(dc.code == 31){
@@ -141,7 +143,7 @@ void loop() {
     {
 
     }
-
+    wad.update(50);
     if( dc.code!=31 ||millis()-time > timeout) {
         if (dc.code!=31 || millis()-time > timeout){
             is_start = false;
@@ -160,6 +162,8 @@ void loop() {
             dc.by = false;
             dc.onoffL = false;
             dc.onoffR = false;
+            dc.w1 = false;
+            dc.w2 = false;
             menu.NRF_status(false);
 
             a1x1.update(0, true);
@@ -252,7 +256,7 @@ void loop() {
         kolano.update(false);
     }
 
-
+    wad.update(50);
     a1y1.update((float)(dc.a1y<0?-dc.a1y:0),false);
     a1y2.update((float)(dc.a1y>0?dc.a1y:0),false);
 //    a1z1.update((float)(dc.a1z<0?-dc.a1z:0)); //Not using
@@ -261,11 +265,17 @@ void loop() {
     wad.update(50);
 
     a2x1.update((float)(dc.a2x<0?-dc.a2x:0),false);
+    wad.update(50);
     a2x2.update((float)(dc.a2x>0?dc.a2x:0),false);
+    wad.update(50);
     a2y1.update((float)(dc.a2y<0?-dc.a2y:0),false);
+    wad.update(50);
     a2y2.update((float)(dc.a2y>0?dc.a2y:0),false);
+    wad.update(50);
     a2z1.update((float)(dc.a2z<0?-dc.a2z:0),false);
+    wad.update(50);
     a2z2.update((float)(dc.a2z>0?dc.a2z:0),false);
+    wad.update(50);
 
     wad.update(50);
 
@@ -284,6 +294,7 @@ void loop() {
 //    a3y2.update((float)(dc.a3y>0?dc.a3y:0)); //Not using
     a3z1.update((float)(dc.a3z<0?-dc.a3z:0),&helpD[2]);
     a3z2.update((float)(dc.a3z>0?dc.a3z:0),&helpD[2]);
+    wad.update(50);
     pomoc_os_1.update(helpD[2]);
     if(!dc.onoffL)
     {
@@ -312,4 +323,5 @@ void loop() {
     digitalWrite(zabList[0],zab[0]);
     digitalWrite(zabList[1],zab[1]);
     digitalWrite(zabList[2],zab[2]);
+    wad.update(50);
 }
